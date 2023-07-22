@@ -13,22 +13,32 @@ const CardStyle = styled.div`
   height: 200px;
   display: inline-block;
   
-  margin: 20px;
-  
-  white-space: nowrap;
-  overflow: hidden;
+  margin: 25px;
   
   text-align: center;
   
+  > div {
+    width: 150px;
+    height: 150px;
+    position: relative;
+  }
+  
+  > h4 {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
 `;
 
 const Card = ({className, imageSrc, headerText}: CardType) => {
 
-    const imageUrl: string = `https://image.tmdb.org/t/p/w150/${imageSrc}`
+    const imageUrl: string = `https://image.tmdb.org/t/p/w500${imageSrc}`
 
     return (
         <CardStyle className={className}>
-            <Image src={imageUrl} alt={headerText} fill={true} />
+            <div>
+                <Image src={imageUrl} alt={headerText} fill={true} />
+            </div>
             <h4>{headerText}</h4>
         </CardStyle>
     );

@@ -15,10 +15,6 @@ interface MovieHomePageType {
 
 export default function Home({ data }: MovieHomePageType) {
 
-    useEffect(() => {
-        console.log(data);
-    }, []);
-
     return (
         <div>
             {data.results.map((movieData: MovieItemType) => (
