@@ -32,12 +32,10 @@ const CardStyle = styled.div`
 
 const Card = ({className, imageSrc, headerText}: CardType) => {
 
-    const imageUrl: string = `https://image.tmdb.org/t/p/w500${imageSrc}`
-
     return (
         <CardStyle className={className}>
             <div>
-                <Image src={imageUrl} alt={headerText} fill={true} />
+                <Image src={imageSrc} alt={headerText} fill={true} />
             </div>
             <h4>{headerText}</h4>
         </CardStyle>

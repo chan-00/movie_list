@@ -1,25 +1,24 @@
 // import function
 import {movieFetcher} from "@/func/api/movieFetcher";
-// import react hooks
-import {useEffect} from "react";
 // import type
 import {MovieItemType, MovieTopRateType} from "@/types/topRateType";
-// import api key
-import {apiKey} from "@/movieApiKey";
 // import Components
 import {Card} from "@/component/molecule/card";
+// import react query
+import {useQuery, QueryClient, dehydrate} from "@tanstack/react-query";
 
 interface MovieHomePageType {
     data: MovieTopRateType;
 }
 
-export default function Home({ data }: MovieHomePageType) {
+export default function Home() {
+    const { data } = useQuery({ queryKey: ['movieList'], queryFn: movieFetcher })
 
     return (
         <div>
-            {data.results.map((movieData: MovieItemType) => (
+            {data?.results.map((movieData: MovieItemType) => (
                 <Card key={movieData.id}
-                      imageSrc={movieData.poster_path}
+                      imageSrc={`https://image.tmdb.org/t/p/w500${movieData.poster_path}`}
                       headerText={movieData.title}
                 />
             ))}
@@ -29,21 +28,13 @@ export default function Home({ data }: MovieHomePageType) {
 
 export const getStaticProps = async () => {
 
-    const apiUrl: string = "https://api.themoviedb.org/3/movie/top_rated?language=ko";
-    const apiOptions: Object = {
-        method: 'GET',
-        headers: {
-            accept: 'application/json',
-            Authorization: apiKey,
-        }
-    };
-
-    const data: MovieTopRateType = await movieFetcher(apiUrl, apiOptions);
+    const queryClient = new QueryClient();
+    await queryClient.prefetchQuery(['movieList'], movieFetcher)
 
     // 페이지 컴포넌트로 가져온 데이터를 전달합니다.
     return {
         props: {
-            data,
+            dehydratedState: dehydrate(queryClient),
         },
     };
 }
