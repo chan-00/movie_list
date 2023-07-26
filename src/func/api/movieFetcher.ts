@@ -2,9 +2,9 @@
 import { MovieTopRateType } from "@/types/topRateType";
 import {apiKey} from "@/movieApiKey";
 
-const movieFetcher = async () => {
+const movieFetcher = async (page: number = 1) => {
 
-    const apiUrl: string = "https://api.themoviedb.org/3/movie/top_rated?language=ko";
+    const apiUrl: string = `https://api.themoviedb.org/3/movie/top_rated?language=ko&page=${page}`;
     const apiOptions: Object = {
         method: 'GET',
         headers: {
