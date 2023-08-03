@@ -35,6 +35,8 @@ const ModalStyle = styled.div`
   border-radius: 10px;
   
   text-align: center;
+  width: 600px;
+  height: 400px;
 `;
 
 const Modal = ({ className, children, display, setDisplay }: ModalType) => {

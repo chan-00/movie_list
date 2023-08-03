@@ -22,6 +22,15 @@ const GridModal = styled(Modal)`
     grid-template-columns: 1fr 1fr;
 `;
 
+const ModalContentsContainer = styled.div`
+    position: relative;
+  
+    > button {
+      position: absolute;
+      bottom: 10px;
+    }
+`;
+
 export default function Home() {
 
     //무한 스크롤링을 위한 useInfiniteQuery 코드
@@ -67,13 +76,13 @@ export default function Home() {
                 <ImageContainer src={`https://image.tmdb.org/t/p/w500${clickMovieState?.poster_path}`}
                                 alt={clickMovieState ? clickMovieState.title : "undefined"}
                                 width={"100%"} height={"100%"} />
-                <div>
+                <ModalContentsContainer>
                     <Title text={clickMovieState?.title} />
                     <Explanation text={clickMovieState?.overview} />
                     <Button text="닫기" handleClickEvent={() => {
                         setCardDisplay(false);
                     }} />
-                </div>
+                </ModalContentsContainer>
             </GridModal> : null}
 
             
@@ -87,7 +96,7 @@ export default function Home() {
                               setCardDisplay(true);
                           }}
                     />
-            ))
+                ))
             )}
 
             <div ref={bottom} />
