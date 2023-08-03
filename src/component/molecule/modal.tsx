@@ -39,11 +39,15 @@ const ModalStyle = styled.div`
 
 const Modal = ({ className, children, display, setDisplay }: ModalType) => {
 
+    const handleModalClickBubbling = (e: React.MouseEvent<HTMLDivElement>) => {
+        e.stopPropagation();
+    }
+
     return (
         <ModalContainerStyle display={display.toString()} onClick={() => {
             setDisplay(false);
         }}>
-            <ModalStyle className={className}>
+            <ModalStyle className={className} onClick={handleModalClickBubbling}>
                 {children}
             </ModalStyle>
         </ModalContainerStyle>
