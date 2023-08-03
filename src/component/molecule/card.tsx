@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import Image from "next/image";
 import React from "react";
+import {ImageContainer} from "@/component/atom/imageContainer";
 
 interface CardType {
     className?: string;
@@ -21,12 +21,6 @@ const CardStyle = styled.div`
   
   cursor: pointer;
   
-  > div {
-    width: 150px;
-    height: 150px;
-    position: relative;
-  }
-  
   > h4 {
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -42,9 +36,7 @@ const Card = ({ className, imageSrc, headerText, handleClickEvent }: CardType) =
 
     return (
         <CardStyle className={className} onClick={handleClick}>
-            <div>
-                <Image src={imageSrc} alt={headerText} fill={true} />
-            </div>
+            <ImageContainer src={imageSrc} alt={headerText} width={"150px"} height={"150px"} />
             <h4>{headerText}</h4>
         </CardStyle>
     );
