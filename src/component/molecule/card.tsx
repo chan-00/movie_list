@@ -1,10 +1,12 @@
 import styled from "styled-components";
 import Image from "next/image";
+import React from "react";
 
 interface CardType {
     className?: string;
     imageSrc: string;
     headerText: string;
+    handleClickEvent: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
 const CardStyle = styled.div`
@@ -16,6 +18,8 @@ const CardStyle = styled.div`
   margin: 25px;
   
   text-align: center;
+  
+  cursor: pointer;
   
   > div {
     width: 150px;
@@ -30,10 +34,14 @@ const CardStyle = styled.div`
   }
 `;
 
-const Card = ({className, imageSrc, headerText}: CardType) => {
+const Card = ({ className, imageSrc, headerText, handleClickEvent }: CardType) => {
+
+    const handleClick = (e: React.MouseEvent<HTMLDivElement>): void => {
+        handleClickEvent?.(e);
+    }
 
     return (
-        <CardStyle className={className}>
+        <CardStyle className={className} onClick={handleClick}>
             <div>
                 <Image src={imageSrc} alt={headerText} fill={true} />
             </div>
