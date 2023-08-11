@@ -74,7 +74,7 @@ export default function Home() {
             {cardDisplay ?
             <GridModal display={cardDisplay} setDisplay={setCardDisplay}>
                 <ImageContainer src={`https://image.tmdb.org/t/p/w500${clickMovieState?.poster_path}`}
-                                alt={clickMovieState ? clickMovieState.title : "undefined"}
+                                alt={clickMovieState ? clickMovieState.title : "내용이 없습니다."}
                                 width={"100%"} height={"100%"} />
                 <ModalContentsContainer>
                     <Title text={clickMovieState?.title} />
@@ -85,7 +85,6 @@ export default function Home() {
                 </ModalContentsContainer>
             </GridModal> : null}
 
-            
             {data?.pages.map((moviePage) =>
                 moviePage.results.map((movieData) => (
                     <Card key={movieData.id}

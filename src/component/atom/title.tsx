@@ -6,13 +6,14 @@ const TitleStyle = styled.h1`
 
 interface TitleType {
     className?: string;
+    clickEventFunction?: () => void;
     text: string|undefined;
 }
 
-const Title = ({ className, text }: TitleType) => {
+const Title = ({ className, clickEventFunction, text }: TitleType) => {
 
     return (
-        <TitleStyle className={className}>
+        <TitleStyle className={className} onClick={clickEventFunction}>
             {text ? text : "Undefined"}
         </TitleStyle>
     );
