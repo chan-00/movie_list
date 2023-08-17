@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, {useState, useRef} from "react";
+import React, {useState} from "react";
 import {Title} from "@/component/atom/title";
 import {WidthMenu} from "@/component/molecule/widthMenu";
 import {Input} from "@/component/atom/input";
@@ -14,11 +14,18 @@ interface HeaderType {
     itemArray: Array<string>;
 }
 
+//항상 화면 상단에 Header 를 위치시키게 하기 위해 fixed, top, left 값을 줬다.
 const HeaderStyle = styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 50px;
     background-color: black;
     display: grid;
     grid-template-columns: 200px 1fr 1fr;
+  
+    z-index: 1;
 `;
 
 const InfoButtonContainerStyle = styled.div`
@@ -33,8 +40,6 @@ const HeaderTitle = styled(Title)`
 
 const Header = ({ className, title, itemArray }: HeaderType) => {
 
-    const inputRef = useRef<HTMLInputElement | null>(null);
-
     const [ searchText, setSearchText ] = useState<string>("");
 
     const router = useRouter();
@@ -42,11 +47,10 @@ const Header = ({ className, title, itemArray }: HeaderType) => {
     // input 태그 입력 중 enter 키를 누르거나 검색 버튼 클릭 시 search 페이지로 이동하며,
     // 사용자가 입력한 검색어 값을 쿼리 스트링으로 건네 준다.
     const handleEvent = (e: React.KeyboardEvent<HTMLInputElement> | React.MouseEvent<HTMLButtonElement>) => {
-
         if(e.type === 'keydown') {
             const keyboardEvent = e as React.KeyboardEvent<HTMLInputElement>;
             if (keyboardEvent.key === 'Enter') {
-                if(inputRef.current !== null) {
+                if(searchText.length !== 0) {
                     router.push({
                         pathname: "/search",
                         query: {
@@ -57,7 +61,8 @@ const Header = ({ className, title, itemArray }: HeaderType) => {
             }
         }
         else if(e.type === 'click') {
-            if(inputRef.current !== null) {
+            if(searchText.length !== 0) {
+                console.log("클릭 이벤트 발생!");
                 router.push({
                     pathname: "/search",
                     query: {
