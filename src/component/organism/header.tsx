@@ -7,7 +7,6 @@ import {Button} from "@/component/atom/button";
 import {DirectionSortContainer} from "@/component/atom/directionSortContainer";
 import {useRouter} from "next/router";
 
-
 interface HeaderType {
     className?: string;
     title: string;

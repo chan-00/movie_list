@@ -5,7 +5,7 @@ import {MovieItemType} from "@/types/topRateType";
 // import Components
 import {Card} from "@/component/molecule/card";
 // import react query
-import { QueryClient, dehydrate, useInfiniteQuery } from "@tanstack/react-query";
+import { QueryClient, dehydrate } from "@tanstack/react-query";
 import {useEffect, useRef, useState} from "react";
 import {useObserver} from "@/func/customHook/useObserver";
 import {useRecoilState} from "recoil";
@@ -16,6 +16,7 @@ import {Explanation} from "@/component/atom/explanation";
 import {Button} from "@/component/atom/button";
 import {ImageContainer} from "@/component/atom/imageContainer";
 import styled from "styled-components";
+import {useInfiniteMovieQuery} from "@/func/customHook/useInfiniteMovieQuery";
 
 const GridModal = styled(Modal)`
     display: grid;
@@ -34,23 +35,7 @@ const ModalContentsContainer = styled.div`
 export default function Home() {
 
     //무한 스크롤링을 위한 useInfiniteQuery 코드
-    const { data, fetchNextPage } = useInfiniteQuery(
-        ["movieList"],
-        ({ pageParam = 1 }) => movieFetcher(pageParam),
-        {
-            getNextPageParam: (lastPage): number|null => {
-                // API 로 받아 온 데이터 중 현재 page 값이 총 page 값보다 작다면(아직 불러올 데이터가 남았다면),
-                // 다음 페이지 데이터를 받아 오기 위해 현재 page 값에서 +1 을 한 값을 반환한다.
-                if(lastPage?.total_pages > lastPage?.page) {
-                    return lastPage?.page + 1;
-                }
-                // 위의 조건이 아니라면 불러올 데이터가 없기 때문에 null 을 반환한다.
-                else {
-                    return null;
-                }
-            },
-        }
-    );
+    const { data, fetchNextPage } = useInfiniteMovieQuery({queryKey: "movieList", apiFetcher: movieFetcher});
 
     // recoil 값 사용
     const [ cardDisplay, setCardDisplay ] = useRecoilState<boolean>(cardModalDisplay);
