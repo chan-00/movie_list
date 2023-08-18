@@ -6,7 +6,7 @@ import {MovieItemType} from "@/types/topRateType";
 import {Card} from "@/component/molecule/card";
 // import react query
 import { QueryClient, dehydrate } from "@tanstack/react-query";
-import {useEffect, useRef, useState} from "react";
+import { useRef, useState} from "react";
 import {useObserver} from "@/func/customHook/useObserver";
 import {useRecoilState} from "recoil";
 import {cardModalDisplay} from "@/recoilAtom/cardModalDisplay";
@@ -49,10 +49,6 @@ export default function Home() {
         target: bottom,
         onIntersect,
     })
-
-    useEffect(() => {
-        console.log(data);
-    }, [data]);
 
     return (
         <div>
