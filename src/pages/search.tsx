@@ -3,12 +3,9 @@ import {dehydrate, QueryClient} from "@tanstack/react-query";
 
 const SearchPage = () => {
 
-
-
     return (
         <div>
             <h1>Search Page</h1>
-            {/* Search form or content */}
         </div>
     );
 };
@@ -25,4 +22,4 @@ export const getServerSideProps = async () => {
     };
 }
 
-export { SearchPage };
+export default SearchPage;

@@ -30,7 +30,7 @@ const useObserver = ({
 
         // observer를 사용하는 컴포넌트가 해제되면 observer 역시 꺼 주자.
         return () => observer && observer.disconnect()
-    }, [target, rootMargin, threshold])
+    }, [target, rootMargin, threshold, onIntersect, root]);
 }
 
 export { useObserver };
