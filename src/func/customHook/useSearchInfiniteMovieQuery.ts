@@ -10,7 +10,7 @@ interface useSearchInfiniteMovieQueryType {
 
 const useSearchInfiniteMovieQuery = ({ queryKey, apiFetcher, searchText }: useSearchInfiniteMovieQueryType) => {
     return useInfiniteQuery(
-        [queryKey],
+        [queryKey, searchText],
         ({ pageParam = 1 }) => apiFetcher({page: pageParam, searchText: searchText}),
         {
             getNextPageParam: (lastPage): number|null => {

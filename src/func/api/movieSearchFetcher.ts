@@ -9,6 +9,8 @@ interface movieSearchFetcherType {
 
 const movieSearchFetcher = async ({ page = 1, searchText }: movieSearchFetcherType) => {
 
+    console.log(page);
+
     const apiUrl: string = `https://api.themoviedb.org/3/search/movie?query=${searchText}&include_adult=false&language=ko&page=${page}`;
     const apiOptions: Object = {
         method: 'GET',
@@ -22,6 +24,7 @@ const movieSearchFetcher = async ({ page = 1, searchText }: movieSearchFetcherTy
     const data: MovieTopRateType = await response.json();
 
     return data;
+
 }
 
 export { movieSearchFetcher };

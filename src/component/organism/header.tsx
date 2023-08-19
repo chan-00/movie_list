@@ -61,7 +61,6 @@ const Header = ({ className, title, itemArray }: HeaderType) => {
         }
         else if(e.type === 'click') {
             if(searchText.length !== 0) {
-                console.log("클릭 이벤트 발생!");
                 router.push({
                     pathname: "/search",
                     query: {

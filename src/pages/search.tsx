@@ -1,23 +1,80 @@
-import React from 'react';
+import React, {useRef, useState} from 'react';
 import {dehydrate, QueryClient} from "@tanstack/react-query";
 import {useRouter} from "next/router";
 import {movieSearchFetcher} from "@/func/api/movieSearchFetcher";
 import {useSearchInfiniteMovieQuery} from "@/func/customHook/useSearchInfiniteMovieQuery";
+import {useRecoilState} from "recoil";
+import {MovieItemType} from "@/types/topRateType";
+import {useObserver} from "@/func/customHook/useObserver";
+import {cardModalDisplay} from "@/recoilAtom/cardModalDisplay";
+import {MovieModal} from "@/component/organism/movieModal";
+import {Card} from "@/component/molecule/card";
+import {CenterContainer} from "@/component/atom/centerContainer";
 
 const SearchPage = () => {
 
     const router = useRouter();
     const { searchText } = router.query;
 
-    const { data, fetchNextPage } = useSearchInfiniteMovieQuery({queryKey: "movieSearchList", apiFetcher: movieSearchFetcher, searchText: searchText});
+    const { data,
+            fetchNextPage,
+            hasNextPage,
+            isFetchingNextPage }
+    = useSearchInfiniteMovieQuery({queryKey: "movieSearchList", apiFetcher: movieSearchFetcher, searchText: searchText});
+
+    // recoil 값 사용
+    const [ cardDisplay, setCardDisplay ] = useRecoilState<boolean>(cardModalDisplay);
+    // 클릭한 카드의 영화 데이터를 담을 state 변수
+    const [ clickMovieState, setClickMovieState] = useState<MovieItemType|null>(null);
+
+    const bottom = useRef(null);
+    const onIntersect = ([entry]: IntersectionObserverEntry[]) => {
+        if (entry.isIntersecting && hasNextPage && !isFetchingNextPage) {
+            fetchNextPage();
+        }
+    }
+
+    useObserver({
+        target: bottom,
+        onIntersect,
+    })
 
     console.log(data);
 
-    return (
-        <div>
-            <h1>{searchText}</h1>
-        </div>
-    );
+    if(data?.pages[0].results.length !== 0) {
+        return (
+            <div>
+                {cardDisplay ?
+                    <MovieModal cardDisplay={cardDisplay}
+                                setCardDisplay={setCardDisplay}
+                                clickMovieState={clickMovieState} />
+                    : null}
+
+                {data?.pages.map((moviePage) =>
+                    moviePage.results?.map((movieData) => (
+                        <Card key={movieData.id}
+                              imageSrc={`https://image.tmdb.org/t/p/w500${movieData.poster_path}`}
+                              headerText={movieData.title}
+                              handleClickEvent={() => {
+                                  setClickMovieState(movieData);
+                                  setCardDisplay(true);
+                              }}
+                        />
+                    ))
+                )}
+
+                <div ref={bottom} />
+            </div>
+        );
+    }
+    else {
+        return (
+            <CenterContainer>
+                <h1>입력한 검색어에 대한 결과물이 존재하지 않습니다!</h1>
+            </CenterContainer>
+        )
+    }
+
 };
 
 export const getServerSideProps = async () => {
