@@ -8,8 +8,8 @@ import {MovieItemType} from "@/types/topRateType";
 import {useObserver} from "@/func/customHook/useObserver";
 import {cardModalDisplay} from "@/recoilAtom/cardModalDisplay";
 import {MovieModal} from "@/component/organism/movieModal";
-import {Card} from "@/component/molecule/card";
 import {CenterContainer} from "@/component/atom/centerContainer";
+import {MovieCardList} from "@/component/organism/movieCardList";
 
 const SearchPage = () => {
 
@@ -39,8 +39,6 @@ const SearchPage = () => {
         onIntersect,
     })
 
-    console.log(data);
-
     if(data?.pages[0].results.length !== 0) {
         return (
             <div>
@@ -48,20 +46,9 @@ const SearchPage = () => {
                     <MovieModal cardDisplay={cardDisplay}
                                 setCardDisplay={setCardDisplay}
                                 clickMovieState={clickMovieState} />
-                    : null}
+                : null}
 
-                {data?.pages.map((moviePage) =>
-                    moviePage.results?.map((movieData) => (
-                        <Card key={movieData.id}
-                              imageSrc={`https://image.tmdb.org/t/p/w500${movieData.poster_path}`}
-                              headerText={movieData.title}
-                              handleClickEvent={() => {
-                                  setClickMovieState(movieData);
-                                  setCardDisplay(true);
-                              }}
-                        />
-                    ))
-                )}
+                <MovieCardList data={data} setClickMovieState={setClickMovieState} setCardDisplay={setCardDisplay} />
 
                 <div ref={bottom} />
             </div>

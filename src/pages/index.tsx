@@ -2,8 +2,6 @@
 import {movieFetcher} from "@/func/api/movieFetcher";
 // import type
 import {MovieItemType} from "@/types/topRateType";
-// import Components
-import {Card} from "@/component/molecule/card";
 // import react query
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 import { useRef, useState} from "react";
@@ -12,6 +10,7 @@ import {useRecoilState} from "recoil";
 import {cardModalDisplay} from "@/recoilAtom/cardModalDisplay";
 import {MovieModal} from "@/component/organism/movieModal";
 import {useInfiniteMovieQuery} from "@/func/customHook/useInfiniteMovieQuery";
+import {MovieCardList} from "@/component/organism/movieCardList";
 
 export default function Home() {
 
@@ -39,18 +38,7 @@ export default function Home() {
                             clickMovieState={clickMovieState} />
             : null}
 
-            {data?.pages.map((moviePage) =>
-                moviePage.results.map((movieData) => (
-                    <Card key={movieData.id}
-                          imageSrc={`https://image.tmdb.org/t/p/w500${movieData.poster_path}`}
-                          headerText={movieData.title}
-                          handleClickEvent={() => {
-                              setClickMovieState(movieData);
-                              setCardDisplay(true);
-                          }}
-                    />
-                ))
-            )}
+            <MovieCardList data={data} setClickMovieState={setClickMovieState} setCardDisplay={setCardDisplay} />
 
             <div ref={bottom} />
         </div>

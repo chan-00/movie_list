@@ -23,7 +23,7 @@ const DirectionSortContainer = ({ className, direction, children }: DirectionSor
     const directionValue = direction === "right" ? "right" : "left";
 
     return (
-        <SortContainer direction={directionValue}>
+        <SortContainer direction={directionValue} className={className}>
             {children}
         </SortContainer>
     )
