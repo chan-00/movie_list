@@ -28,11 +28,13 @@ const SearchPage = () => {
     const [ clickMovieState, setClickMovieState] = useState<MovieItemType|null>(null);
 
     const bottom = useRef(null);
+
     const onIntersect = ([entry]: IntersectionObserverEntry[]) => {
         if (entry.isIntersecting && hasNextPage && !isFetchingNextPage) {
             fetchNextPage();
         }
     }
+
 
     useObserver({
         target: bottom,

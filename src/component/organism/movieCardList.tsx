@@ -11,6 +11,7 @@ interface MovieCardListType {
 }
 
 const MovieCardList = ({ data, setClickMovieState, setCardDisplay }: MovieCardListType) => {
+
     return (
         <div>
             {data?.pages.map((moviePage: MovieTopRateType) =>
