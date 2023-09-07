@@ -3,7 +3,7 @@ import React from "react";
 
 const InputStyle = styled.input`
   padding: 5px;
-  font-size: 10px;
+  font-size: 12px;
 `;
 
 interface InputType {
