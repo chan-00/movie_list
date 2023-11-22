@@ -1,38 +1,28 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 영화 검색 페이지
 
-## Getting Started
+## 개요
 
-First, run the development server:
+- Next.js 학습을 위해 TMDB Movie API를 사용하여 영화 정보를 보거나 검색할 수 있는 페이지 제작
+- 개발 기간 (2023.05 ~ 2023.08)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## 사용 기술
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Next.js
+- Recoil
+- React-Bootstrap
+- ES6+
+- Vercel
+- React-Query
+- Fetch
+- TypeScript
+- Styled Component
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## 구현 기능
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+### 무한 스크롤링
+- React-Query의 useInfiniteQuery로 영화 데이터 무한 스크롤링 구현
+- IntersectionObserver를 활용한 useObserver라는 custom hook을 만들어 스크롤 시 페이지 바닥에 닿으면 다음 영화 데이터 요청
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### SSG, SSR 페이지 구현
+- 메인 페이지는 상황에 따라 동적 데이터 호출이 아닌 항상 같은 데이터를 띄우기 때문에 getStaticProps로 SSG 페이지 구현
+- 영화 검색결과 페이지는 상황에 따라 띄울 데이터가 달라지는 페이지이기 때문에 getServerSideProps로 SSR 페이지 구현
