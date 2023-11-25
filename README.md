@@ -4,6 +4,7 @@
 
 - Next.js 학습을 위해 TMDB Movie API를 사용하여 영화 정보를 보거나 검색할 수 있는 페이지 제작
 - 개발 기간 (2023.05 ~ 2023.08)
+- Vercel 링크: https://movie-list-one-xi.vercel.app/
 
 ## 사용 기술
 
