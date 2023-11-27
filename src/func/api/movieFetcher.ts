@@ -1,6 +1,5 @@
 // import type
 import { MovieTopRateType } from "@/types/topRateType";
-import {apiKey} from "@/movieApiKey";
 
 const movieFetcher = async (page: number = 1): Promise<MovieTopRateType> => {
 
@@ -9,7 +8,7 @@ const movieFetcher = async (page: number = 1): Promise<MovieTopRateType> => {
         method: 'GET',
         headers: {
             accept: 'application/json',
-            Authorization: apiKey,
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_MOVIE_API_KEY}`,
         }
     };
 

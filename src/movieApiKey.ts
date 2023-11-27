@@ -1,3 +1,0 @@
-const apiKey: string = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxZDRlZjllYjA3YWJiNDI5YmJjNjJhNjk1NWFkYzIxNSIsInN1YiI6IjY0OTNkZTRiOWEzNThkMDEzOWRmYzllZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.8DcyAoJyriTFUPPFgjUczHIGusyRCorhqV0yD7tWBB8';
-
-export { apiKey };

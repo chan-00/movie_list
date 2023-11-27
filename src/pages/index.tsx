@@ -28,7 +28,7 @@ export default function Home() {
     useObserver({
         target: bottom,
         onIntersect,
-    })
+    });
 
     return (
         <div>

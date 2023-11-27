@@ -1,6 +1,5 @@
 // import type
 import { MovieTopRateType } from "@/types/topRateType";
-import {apiKey} from "@/movieApiKey";
 
 interface movieSearchFetcherType {
     page: number;
@@ -14,7 +13,7 @@ const movieSearchFetcher = async ({ page = 1, searchText }: movieSearchFetcherTy
         method: 'GET',
         headers: {
             accept: 'application/json',
-            Authorization: apiKey,
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_MOVIE_API_KEY}`,
         }
     };
 
